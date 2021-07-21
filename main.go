@@ -35,9 +35,24 @@ func main() {
 			printError(errReadingInput)
 		}
 
+		// convert units of temp measurement
+		if originUnit == "C" {
+			convertToFahrenheit(originValue)
+		} else {
+			convertToCelsius(originValue)
+		}
+
 		fmt.Print("Would you like to convert another temperature ? (y/n) ")
 
-		if shouldConvertAgain != "Y" {
+		// NOTE: Scanln method: what the heck is it?
+		_,err = fmt.Scanln(&shouldConvertAgain)
+
+		if err != nil {
+			printError(errReadingInput)
+		}
+
+
+		if strings.ToUpper(strings.TrimSpace(shouldConvertAgain)) != "Y" {
 			fmt.Println("Good bye!")
 			break
 		}
